@@ -4,8 +4,8 @@ module.exports = {
      * Translate the given key.
      */
     __(key, replace) {
-      var translation = window.config.translations[key]
-        ? window.config.translations[key]
+      let translation = Nova.config('translations')[key]
+        ? Nova.config('translations')[key]
         : key
 
       _.forEach(replace, (value, key) => {
