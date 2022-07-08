@@ -67,6 +67,7 @@
       v-if="modalOpen"
       :selected-filters="selectedFilters"
       :title="title"
+      :open="modalOpen"
       :filters="filters"
       @selected="selected"
       @closeModal="closeModal"

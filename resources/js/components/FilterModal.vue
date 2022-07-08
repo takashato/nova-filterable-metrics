@@ -1,5 +1,5 @@
 <template>
-  <Modal class="modal" tabindex="-1" role="dialog">
+  <Modal :show="open" class="modal" tabindex="-1" role="dialog">
     <div class="bg-white rounded-lg shadow-lg overflow-hidden w-action-fields">
       <div>
         <heading
@@ -115,7 +115,7 @@
 </template>
 <script>
 export default {
-  props: ["title", "ranges", "filters", "selectedRangeKey", "selectedFilters"],
+  props: ["title", "ranges", "filters", "selectedRangeKey", "selectedFilters", "open"],
 
   computed: {
     placeholder() {
