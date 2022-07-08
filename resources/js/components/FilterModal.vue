@@ -1,5 +1,5 @@
 <template>
-  <modal class="modal" tabindex="-1" role="dialog">
+  <Modal class="modal" tabindex="-1" role="dialog">
     <div class="bg-white rounded-lg shadow-lg overflow-hidden w-action-fields">
       <div>
         <heading
@@ -111,7 +111,7 @@
         </div>
       </div>
     </div>
-  </modal>
+  </Modal>
 </template>
 <script>
 export default {
