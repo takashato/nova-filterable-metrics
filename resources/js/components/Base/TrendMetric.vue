@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import TrendMetric from "@/components/Metrics/Base/TrendMetric";
+import TrendMetric from "@/components/Metrics/Base/BaseTrendMetric.vue";
 
 export default {
   extends: TrendMetric,

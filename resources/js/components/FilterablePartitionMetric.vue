@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import { Minimum } from "laravel-nova";
 import BasePartitionMetric from "./Base/PartitionMetric";
-import PartitionMetric from "@/components/Metrics/PartitionMetric";
+import PartitionMetric from "@/components/Metrics/PartitionMetric.vue";
+import Minimum from "@/util/minimum";
 
 export default {
   extends: PartitionMetric,

@@ -1,5 +1,5 @@
 <script>
-import DateTimePicker from "@/components/DateTimePicker";
+import DateTimePicker from "@/fields/Form/DateTimeField.vue";
 export default {
   extends: DateTimePicker,
   props: {
@@ -17,7 +17,7 @@ export default {
     if (this.mode === "range") {
       this.placeholder = "Choose date range";
     }
-    
+
     this.$nextTick(() => {
       this.flatpickr = flatpickr(this.$refs.datePicker, {
         enableTime: this.enableTime,

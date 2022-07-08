@@ -98,7 +98,7 @@
 </template>
 
 <script>
-import ValueMetric from "@/components/Metrics/Base/ValueMetric";
+import ValueMetric from "@/components/Metrics/Base/BaseValueMetric.vue";
 
 export default {
   extends: ValueMetric,

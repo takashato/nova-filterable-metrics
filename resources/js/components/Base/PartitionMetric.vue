@@ -75,7 +75,7 @@
 </template>
 
 <script>
-import PartitionMetric from "@/components/Metrics/Base/PartitionMetric";
+import PartitionMetric from "@/components/Metrics/Base/BasePartitionMetric.vue";
 
 export default {
   extends: PartitionMetric,
