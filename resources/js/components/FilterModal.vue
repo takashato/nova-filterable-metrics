@@ -117,10 +117,6 @@
 export default {
   props: ["title", "ranges", "filters", "selectedRangeKey", "selectedFilters", "open"],
 
-  mounted() {
-    console.log('mounted', this.selectedFilters);
-  },
-
   computed: {
     placeholder() {
       return this.__("Choose date");

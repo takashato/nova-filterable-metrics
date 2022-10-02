@@ -1,6 +1,5 @@
 import FilterModal from './components/FilterModal.vue';
-import DateTimePicker from './components/DateTimePicker.vue';
-import FilterableValueMetric from './components/DateTimePicker.vue';
+import FilterableValueMetric from './components/FilterableValueMetric.vue';
 import FilterableTrendMetric from './components/FilterableTrendMetric.vue';
 import FilterablePartitionMetric from './components/FilterablePartitionMetric.vue';
 import VueFlatPickr from 'vue-flatpickr-component';

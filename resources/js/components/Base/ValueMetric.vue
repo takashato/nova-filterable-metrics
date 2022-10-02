@@ -1,7 +1,10 @@
 <template>
-  <loading-card :loading="loading" class="px-6 py-4">
-    <div class="flex mb-4">
-      <h3 class="mr-3 text-base text-80 font-bold">{{ title }}</h3>
+  <LoadingCard :loading="loading" class="px-6 py-4">
+    <div class="h-6 flex items-center mb-4">
+      <h3 class="mr-3 leading-tight text-sm font-bold">{{ title }}</h3>
+
+      <HelpTextTooltip :text="helpText" :width="helpWidth" />
+
       <button class="ml-auto text-80 btn btn-white" v-if="filters.length > 0" @click="openModal">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -18,85 +21,99 @@
           />
         </svg>
       </button>
-
-      <div v-if="helpText" class="absolute pin-r pin-b p-2 z-50">
-        <tooltip trigger="click">
-          <icon
-            type="help"
-            viewBox="0 0 17 17"
-            height="16"
-            width="16"
-            class="cursor-pointer text-60 -mb-1"
-          />
-
-          <tooltip-content slot="content" v-html="helpText" :max-width="helpWidth" />
-        </tooltip>
-      </div>
     </div>
 
-    <p class="flex items-center text-4xl mb-4">
-      {{ formattedValue }}
-      <span v-if="suffix" class="ml-2 text-sm font-bold text-80">
-        {{
-        formattedSuffix
-        }}
-      </span>
-    </p>
+    <div class="flex items-center mb-4">
+      <div
+        v-if="icon"
+        class="rounded-lg bg-primary-500 text-white h-14 w-14 flex items-center justify-center"
+      >
+        <Icon :type="icon" width="24" height="24" />
+      </div>
 
-    <div class="flex items-center">
-      <p class="text-80 font-bold">
-        <svg
-          v-if="increaseOrDecreaseLabel == 'Decrease'"
-          class="text-danger fill-current mr-2"
-          width="20"
-          height="12"
-        >
-          <path
-            d="M2 3a1 1 0 0 0-2 0v8a1 1 0 0 0 1 1h8a1 1 0 0 0 0-2H3.414L9 4.414l3.293 3.293a1 1 0 0 0 1.414 0l6-6A1 1 0 0 0 18.293.293L13 5.586 9.707 2.293a1 1 0 0 0-1.414 0L2 8.586V3z"
-          />
-        </svg>
-        <svg
-          v-if="increaseOrDecreaseLabel == 'Increase'"
-          class="rotate-180 text-success fill-current mr-2"
-          width="20"
-          height="12"
-        >
-          <path
-            d="M2 3a1 1 0 0 0-2 0v8a1 1 0 0 0 1 1h8a1 1 0 0 0 0-2H3.414L9 4.414l3.293 3.293a1 1 0 0 0 1.414 0l6-6A1 1 0 0 0 18.293.293L13 5.586 9.707 2.293a1 1 0 0 0-1.414 0L2 8.586V3z"
-          />
-        </svg>
+      <div :class="{ 'ml-4': icon }">
+        <p class="flex items-center text-4xl">
+          {{ formattedValue }}
+          <span v-if="suffix" class="ml-2 text-sm font-bold">{{
+              formattedSuffix
+            }}</span>
+        </p>
 
-        <span v-if="increaseOrDecrease != 0">
-          <span v-if="growthPercentage !== 0">
-            {{ growthPercentage }}%
-            {{ __(increaseOrDecreaseLabel) }}
-          </span>
+        <div>
+          <p class="flex items-center font-bold text-sm">
+            <svg
+              v-if="increaseOrDecreaseLabel == 'Decrease'"
+              xmlns="http://www.w3.org/2000/svg"
+              class="text-red-500 stroke-current mr-2"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"
+              />
+            </svg>
+            <svg
+              v-if="increaseOrDecreaseLabel == 'Increase'"
+              class="text-green-500 stroke-current mr-2"
+              width="24"
+              height="24"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+              />
+            </svg>
 
-          <span v-else>{{ __('No Increase') }}</span>
-        </span>
+            <span v-if="increaseOrDecrease != 0">
+              <span v-if="growthPercentage !== 0">
+                {{ growthPercentage }}%
+                {{ __(increaseOrDecreaseLabel) }}
+              </span>
 
-        <span v-else>
-          <span v-if="previous == '0' && value != '0'">{{ __('No Prior Data') }}</span>
+              <span v-else>{{ __('No Increase') }}</span>
+            </span>
 
-          <span v-if="value == '0' && previous != '0' && !zeroResult">{{ __('No Current Data') }}</span>
+            <span class="text-gray-400 font-semibold" v-else>
+              <span v-if="previous == '0' && value != '0'">
+                {{ __('No Prior Data') }}
+              </span>
 
-          <span v-if="value == '0' && previous == '0' && !zeroResult">{{ __('No Data') }}</span>
-        </span>
-      </p>
+              <span v-if="value == '0' && previous != '0' && !zeroResult">
+                {{ __('No Current Data') }}
+              </span>
+
+              <span v-if="value == '0' && previous == '0' && !zeroResult">
+                {{ __('No Data') }}
+              </span>
+            </span>
+          </p>
+        </div>
+      </div>
     </div>
     <filterable-modal
       v-if="modalOpen"
       :selected-range-key="selectedRangeKey"
       :selected-filters="selectedFilters"
       :title="title"
+      :open="modalOpen"
       :ranges="ranges"
       :filters="filters"
       @selected="selected"
       @closeModal="closeModal"
     />
-  </loading-card>
+  </LoadingCard>
 </template>
-
 <script>
 import ValueMetric from "@/components/Metrics/Base/BaseValueMetric.vue";
 
