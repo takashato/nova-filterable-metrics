@@ -25,10 +25,8 @@ trait Filterable
 
         $filters = collect($this->filters());
 
-        $filters->filter(static function ($filter) use ($request) {
-            return $request->input(get_class($filter));
-        })->map(static function ($filter) use ($request, $model) {
-            $model = $filter->apply($request, $model, $request->input(get_class($filter)));
+        $filters->map(static function ($filter) use ($request, $model) {
+            $model = $filter->apply($request, $model, $request->input(get_class($filter)), $filter->default());
         });
 
         return $model;
