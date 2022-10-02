@@ -71,10 +71,10 @@
               />
               <input
                 :id="filter.name"
-                :class="inputClasses(filter.component)"
+                :class="inputClasses(filter.component == 'boolean-filter' ? 'checkbox' : filter.component)"
                 v-else-if="filter.component !== 'select-filter'"
                 @change="handleChange(filter, $event)"
-                :type="filter.component"
+                :type="filter.component == 'boolean-filter' ? 'checkbox' : filter.component"
                 :checked="selectedFilters[filter.class] === 1"
                 :value="selectedFilters[filter.class]"
               />
