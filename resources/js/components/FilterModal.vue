@@ -58,16 +58,14 @@
                   mode: filter.mode,
                   enableTime: false,
                   enableSeconds: false,
-                  dateFormat: 'Y-m-d',
-                  altFormat: 'Y-m-d',
                   firstDayOfWeek,
+                  defaultDate: selectedFilters[filter.class],
                 }"
                 v-if="filter.component.includes('date')"
                 class="w-full form-control form-input form-input-bordered"
                 dusk="date-filter"
                 name="date-filter"
                 autocomplete="off"
-                :value="selectedFilters[filter.class] || filter.currentValue"
                 @input.prevent=""
                 @on-change="handleChange(filter, $event)"
               />
@@ -119,6 +117,10 @@
 export default {
   props: ["title", "ranges", "filters", "selectedRangeKey", "selectedFilters", "open"],
 
+  mounted() {
+    console.log('mounted', this.selectedFilters);
+  },
+
   computed: {
     placeholder() {
       return this.__("Choose date");
@@ -136,12 +138,12 @@ export default {
     },
 
     handleChange(filter, event) {
+      console.log("datetime", event);
+
       if (filter === null) {
         this.$emit("selected", event.target.value);
 
-        this.$toasted.show("Filtered Time Range", {
-          type: "success"
-        });
+        Nova.success(this.__("Filtered Time Range"));
 
         return;
       }
@@ -164,9 +166,7 @@ export default {
           selected
         });
 
-        this.$toasted.show("Filtered " + filter.name, {
-          type: "success"
-        });
+        Nova.success(this.__("Filtered :name", { name: filter.name }));
       }
     }
   }
