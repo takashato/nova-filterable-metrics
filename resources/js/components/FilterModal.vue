@@ -5,7 +5,8 @@
         <heading
           :level="2"
           class="border-b border-40 py-8 px-8 text-90 font-normal text-xl"
-          >Filter "{{ title }}"</heading
+        >Filter "{{ title }}"
+        </heading
         >
 
         <div class="py-6 action">
@@ -17,7 +18,7 @@
               <label
                 for="nova-time-range"
                 class="inline-block text-80 pt-2 leading-tight"
-                >Time Range</label
+              >Time Range</label
               >
             </div>
             <div class="py-6 px-8 w-1/2">
@@ -47,27 +48,28 @@
               <label
                 :for="filter.name"
                 class="inline-block text-80 pt-2 leading-tight"
-                >{{ filter.name }}</label
+              >{{ filter.name }}</label
               >
             </div>
             <div class="py-6 px-8 w-1/2">
-              <date-time-picker
+              <flat-pickr
                 :id="filter.name"
-                :mode="filter.mode"
+                :config="{
+                  mode: filter.mode,
+                  enableTime: false,
+                  enableSeconds: false,
+                  dateFormat: 'Y-m-d',
+                  altFormat: 'Y-m-d',
+                  firstDayOfWeek,
+                }"
                 v-if="filter.component.includes('date')"
                 class="w-full form-control form-input form-input-bordered"
                 dusk="date-filter"
                 name="date-filter"
                 autocomplete="off"
                 :value="selectedFilters[filter.class] || filter.currentValue"
-                alt-format="Y-m-d"
-                date-format="Y-m-d"
-                :placeholder="placeholder"
-                :enable-time="false"
-                :enable-seconds="false"
-                :first-day-of-week="firstDayOfWeek"
                 @input.prevent=""
-                @change="handleChange(filter, $event)"
+                @on-change="handleChange(filter, $event)"
               />
               <input
                 :id="filter.name"
@@ -84,7 +86,7 @@
                 @change="handleChange(filter, $event)"
                 class="w-full form-control form-select"
               >
-              <option value selected v-if="!filter.currentValue && filter.currentValue !== 0">&mdash;</option>
+                <option value selected v-if="!filter.currentValue && filter.currentValue !== 0">&mdash;</option>
                 <option
                   v-for="option in filter.options"
                   :key="option.value"
@@ -120,7 +122,7 @@ export default {
   computed: {
     placeholder() {
       return this.__("Choose date");
-    },
+    }
   },
   methods: {
     inputClasses(inputType) {
@@ -138,7 +140,7 @@ export default {
         this.$emit("selected", event.target.value);
 
         this.$toasted.show("Filtered Time Range", {
-          type: "success",
+          type: "success"
         });
 
         return;
@@ -159,14 +161,14 @@ export default {
       if (this.selectedFilters[filter.class] !== selected) {
         this.$emit("selected", {
           filter,
-          selected,
+          selected
         });
 
         this.$toasted.show("Filtered " + filter.name, {
-          type: "success",
+          type: "success"
         });
       }
-    },
-  },
+    }
+  }
 };
 </script>
