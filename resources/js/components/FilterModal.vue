@@ -82,7 +82,7 @@
                 :id="filter.name"
                 v-if="filter.component === 'select-filter'"
                 @change="handleChange(filter, $event)"
-                class="w-full form-control form-select"
+                class="w-full form-control form-select form-input-bordered"
               >
                 <option value selected v-if="!filter.currentValue && filter.currentValue !== 0">&mdash;</option>
                 <option
@@ -91,7 +91,7 @@
                   :value="option.value"
                   :selected="option.value == selectedFilters[filter.class]"
                 >
-                  {{ option.name }}
+                  {{ option.label }}
                 </option>
               </select>
             </div>
