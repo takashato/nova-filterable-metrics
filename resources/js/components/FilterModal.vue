@@ -106,7 +106,7 @@
             type="submit"
             class="btn btn-default btn-primary"
           >
-            <span>Save</span>
+            <span>{{ this.__('Close') }}</span>
           </button>
         </div>
       </div>
